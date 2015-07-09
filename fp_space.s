@@ -3,7 +3,7 @@ Demo of the Space of Floating-point representable values
 compiled: gcc -g fp_space.s -o fp_space  
 machine: uname -a Linux debian-armhf 3.2.0-4-vexpress #1 SMP Debian 3.2.51-1 armv7l GNU/Linux
 above is basically a QEMU environ....
-Last Revision 07/08/2015
+Last Revision 07/09/2015
 */
 .bss
 .data
