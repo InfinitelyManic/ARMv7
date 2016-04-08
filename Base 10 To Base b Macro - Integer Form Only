@@ -1,12 +1,9 @@
 .macro base10Tb n b
 .base10Tb\@:
 push {r1-r4,r12}
-mov r1, \n                      // base 10 num
-mov r2, \b                      // new baseb
-//      cmp r12, #2                     // if new base is 2 then just quit; what's the point
-//      moveq r4, r1                    // return orig num if base 2 is new base
-//      beq .exit\@
-mov r12, sp                     // save stack address in order to pop the same number of pushes
+mov r1, \n              // base 10 num
+mov r2, \b              // new baseb
+mov r12, sp             // save stack address in order to pop the same number of pushes
 .L0\@:
 mod r1, r2              // n mod b
 push {r0}               // save n mod b onto stack
