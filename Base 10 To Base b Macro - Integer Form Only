@@ -28,5 +28,5 @@ push {r1-r4,r12}
     bal .L1\@
   .exit\@:
   mov r0, r4              // return concat num
-  pop {r1-r4,r12}
+pop {r1-r4,r12}
 .endm
