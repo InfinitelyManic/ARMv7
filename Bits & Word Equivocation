@@ -1,0 +1,54 @@
+/*
+David @InfinitelyManic
+some bit tricks stuff; word equivocation
+uname -a
+Linux scw-cb8d4b 3.2.34-30 #17 SMP Mon Apr 13 15:53:45 UTC 2015 armv7l armv7l armv7l GNU/Linux
+*/
+.bss
+.data
+fmt:    .asciz "%d AND %d is NOT %d in %d bit representation\n"
+.text
+.global main
+.include "mymac.s"
+main:
+nop
+mov r11, #32            // max bits
+// ********************************
+mov r1, #0xff           // A
+1:
+mov r2, #0xff           // B
+2:
+cmp r1, r2
+ble .skip               // A > B
+add r3, r1, r2          // A + B = C
+ands r4, r1, r2         // A & B
+beq .skip               // A & B != 0
+
+clz r10, r3             // counter leading zero bits of C
+mvn r5, r4              // NOT C
+lsl r5, r10             // shift C bits to left edge C leading zero bit times
+lsr r5, r10             // shift C bits back to right edge C leading zero bit times
+
+cmp r3, r5              // A & B == NOT C
+bne .skip
+
+sub r4, r11, r10        // bit representation
+
+bl write
+.skip:
+subs r2, #1
+bne 2b
+subs r1, #1
+bne 1b
+
+exit:
+mov r7, #1
+svc 0
+
+write:
+push {r1-r12,lr}
+ldr r0,=fmt
+push {r4}
+bl printf
+pop {r4}
+pop {r1-r12,pc}
