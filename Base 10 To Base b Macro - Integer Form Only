@@ -1,31 +1,32 @@
 .macro base10Tb n b
 .base10Tb\@:
 push {r1-r4,r12}
-mov r1, \n              // base 10 num
-mov r2, \b              // new baseb
-mov r12, sp             // save stack address in order to pop the same number of pushes
-.L0\@:
-mod r1, r2              // n mod b
-push {r0}               // save n mod b onto stack
-intDiv r1, r2           // new base
-cmp r0, #0              // need to raise that flag
-beq .concat\@           // if n is zero exit
-mov r1, r0              // new n
-bal .L0\@
+  mov r1, \n              // base 10 num
+  mov r2, \b              // new baseb
+  mov r12, sp             // save stack address in order to pop the same number of pushes
+  .L0\@:
+    mod r1, r2              // n mod b
+    push {r0}               // save n mod b onto stack
+    intDiv r1, r2           // new base
+    Zmp r0, #0              // need to raise that flag
+    beq .concat\@           // if n is zero exit
+    mov r1, r0              // new n
+    bal .L0\@
+    
 .concat\@:
-pop {r4}                // LIFO  - get the first digit
-.L1\@:
-cmp sp, r12             // are we back at the original stack level
-beq  .exit\@
-pop {r3}                // next digit
-// swap A & B
-eor r3, r3, r4
-eor r4, r3, r4
-eor r3, r3, r4
-concatThis r3, r4       // first, second, third...
-mov r4, r0              // new concat num
-bal .L1\@
-.exit\@:
-mov r0, r4              // return concat num
-pop {r1-r4,r12}
+  pop {r4}                // LIFO  - get the first digit
+  .L1\@:
+    cmp sp, r12             // are we back at the original stack level
+    beq  .exit\@
+    pop {r3}                // next digit
+    // swap A & B
+    eor r3, r3, r4
+    eor r4, r3, r4
+    eor r3, r3, r4
+    concatThis r3, r4       // first, second, third...
+    mov r4, r0              // new concat num
+    bal .L1\@
+  .exit\@:
+  mov r0, r4              // return concat num
+  pop {r1-r4,r12}
 .endm
