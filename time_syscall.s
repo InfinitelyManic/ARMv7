@@ -1,6 +1,6 @@
 /*
         David @InfinitelyManic
-        http://stackoverflow.com/questions/39820523/arm-assembly-time-system-call-unexpected-values
+        Based on question from http://stackoverflow.com/questions/39820523/arm-assembly-time-system-call-unexpected-values
 
         $ uname -a
         Linux raspberrypi 4.4.21-v7+ #911 SMP Thu Sep 15 14:22:38 BST 2016 armv7l GNU/Linux
