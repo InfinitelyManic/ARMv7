@@ -1,4 +1,4 @@
-/* David @Infinitelymanic
+/* David @InfinitelyManic
 gcc -g gcd.s -o gcd
 GCD e.g. reducing branches with conditionals from ARM Assembly Language 2nd, W Hohl, C Hinds 
 */
